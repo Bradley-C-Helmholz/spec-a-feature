@@ -2230,6 +2230,9 @@ Report generating algorithm: N/A
   - 6b1. The system emails the students determined during step 6, not the students on the list displayed in step 2
   - 6b2. Step 8 reports who was actually emailed
   - 6b3. Use case continues as before to step 7
+- **6c. At send time the reporting week is no longer active, or the course section is now inactive:**
+  - 6c1. The system sends nothing and informs the instructor as in 2a1.
+  - 6c2. Use case ends
 - **7a. The mail server rejects a student's address:**
   - 7a1. The system logs failure, skips student, and continues sending to rest
   - 7a2. Step 8 will report emails that failed to send
