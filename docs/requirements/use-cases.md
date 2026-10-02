@@ -2233,9 +2233,12 @@ Report generating algorithm: N/A
 - **7a. The mail server rejects a student's address:**
   - 7a1. The system logs failure, skips student, and continues sending to rest
   - 7a2. Step 8 will report emails that failed to send
-- **7b. The email service is currently unavailable:**
+- **7b. The email service is unavailable before the ifrst reminder is sent:**
   - 7b1. The system sends no reminders, and informs instructor that the system is unable to deliver reminder emails
   - 7b2. Use case ends
+- **7c. The email servivce becomes unavailable after some reminders have been sent:**
+  - 7c1. The system stops sending. Reminders that have already been sent stay sent.
+  - 7c2. Step 8 reports the unsent students as failed deliveries
 
 **Priority:** Medium
 **Frequency of Use:** Around a few times a week, though may be as many times as desired
