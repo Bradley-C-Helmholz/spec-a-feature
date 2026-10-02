@@ -2239,7 +2239,7 @@ Report generating algorithm: N/A
 
 **Priority:** Medium
 **Frequency of Use:** Around a few times a week, though may be as many times as desired
-**Business Rules:** BR-section-scoped-access, BR-role-based-access (only instructors allowed to send reminders), BR-war-submitted, BR-team-assignment-required (student must be in team to be counted as whether or not a non-submitter), BR-student-lifecycle (deactivated student cannot be considered a non-submitter), BR-account-self-setup, BR-active-weeks, BR-war-reminder-unlimited (no limit to number of times instructor may send email reminders)
+**Business Rules:** BR-section-scoped-access, BR-role-based-access (only instructors allowed to send reminders), BR-war-submitted, BR-team-assignment-required (student must be in team to be counted as whether or not a non-submitter), BR-student-lifecycle (deactivated student cannot be considered a non-submitter), BR-account-self-setup, BR-active-weeks, BR-war-reminder-unlimited (no limit to number of times instructor may send email reminders), BR-institution-time-zone
 
 **Associated Information:**
 - Reporting week: The week that contains the moment the non-submitters are determined (for steps 2 and 6). The weekly activity report for the reporting week is due on the course section's configured weekly activity report due day for the reporting week. Only the reporting week is looked at when determining non-submitters. Students are not sent reminders for earlier weeks, even when students can edit previous weeks' reports.
