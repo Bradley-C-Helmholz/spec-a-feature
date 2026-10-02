@@ -2181,6 +2181,82 @@ Report generating algorithm: N/A
 **Assumptions:**
 **Open Issues:**
 
+### **UC-WAR-remind-unsubmitted: The course instructor reminds students who have not submitted a WAR for the week**
+
+**UC ID and Name:** UC-WAR-remind-unsubmitted: Remind students who have not submitted a weekly activity report
+**Created By:** Bradley Helmholz
+**Date Created:** 1 October 2026
+**Primary Actor:** Instructor
+**Secondary Actors:** Emailing service
+**Trigger:** The instructor indicates to nudge (remind) to students in a course section who have not yet logged their weekly activity report
+**Description:** The instructor wishes to remind students who have not yet submitted a weekly activity report for the reporting week, and sends a nudge to all such students via email to remind them so they can log their WARs for the week.
+
+**Preconditions:**
+- PRE-1. The instructor is logged into the system.
+- PRE-2. The instructor is assigned to a specific course section, or is the course admin of the course it belongs to (BR-section-scoped-access)
+
+**Postconditions:**
+- POST-1. Every student that has not submitted a weekly activity report for the reporting week receives an email reminding them to log their WAR
+- POST-2. Any failed delivery to non-submitters is reported to the appropriate instructor
+- POST-3. No email is sent to students that have already submitted a report
+
+**Main Success Scenario:**
+1. The instructor indicates to remind students who have not submitted for a specific course section
+2. The system finds the current reporting week (as defined in "Reporting week") and constructs a list of the current non-submitters
+3. The instructor indicates to send a nudge email reminder to every student on the list
+4. The system prompts the instructor to confirm the nudge reminder
+5. The instructor confirms
+6. The system recalculates the current non-submitters, as they did in step 2
+7. The system emails each student from step 6 through individual reminders
+8. The system reports to the instructor how many students have been successfully emailed, while also reporting any email send failures
+9. Use case ends
+
+**Extensions:**
+- **2a. The reporting week is not one of the course section's active weeks:**
+  - 2a1. The system informs the instructor that email reminders are not sent to students for an inactive week (BR-active-weeks)
+  - 2a2. Use case ends
+- **2b. There are no non-submitters:**
+  - 2b1. The system informs the instructor that there are no non-submitters as every eligible student has submitted a weekly activity report for the reporting week
+  - 2b2. Use case ends
+- **3a. An email reminder has already been sent for the reporting week:**
+  - 3a1. The use case continues as normal (BR-war-reminder-unlimited)
+- **5a. The instructor declines the confirmation:**
+  - 5a1. The system sends nothing
+  - 5a2. Use case ends
+- **6a. No non-submitters remain at send time:**
+  - 6a1. The system sends nothing and informs instructor that every eligible student has now submitted.
+  - 6a2. Use case ends
+- **6b. The non-submitters at send time differ from the list displayed in step 2. For instance, a student submitted a report before step 2, then deleted all activity for the reporting week, left or joined a team, or was deactivated after step 2:**
+  - 6b1. The system emails the students determined during step 6, not the students on the list displayed in step 2
+  - 6b2. Step 8 reports who was actually emailed
+  - 6b3. Use case continues as before to step 7
+- **6c. At send time the reporting week is no longer active, or the course section is now inactive:**
+  - 6c1. The system sends nothing and informs the instructor as in 2a1.
+  - 6c2. Use case ends
+- **7a. The mail server rejects a student's address:**
+  - 7a1. The system logs failure, skips student, and continues sending to rest
+  - 7a2. Step 8 will report emails that failed to send
+- **7b. The email service is unavailable before the ifrst reminder is sent:**
+  - 7b1. The system sends no reminders, and informs instructor that the system is unable to deliver reminder emails
+  - 7b2. Use case ends
+- **7c. The email servivce becomes unavailable after some reminders have been sent:**
+  - 7c1. The system stops sending. Reminders that have already been sent stay sent.
+  - 7c2. Step 8 reports the unsent students as failed deliveries
+
+**Priority:** Medium
+**Frequency of Use:** Around a few times a week, though may be as many times as desired
+**Business Rules:** BR-section-scoped-access, BR-role-based-access (only instructors, or the course admin who own the course section, is allowed to send reminders), BR-war-submitted, BR-team-assignment-required (student must be in team to be counted as whether or not a non-submitter), BR-student-lifecycle (deactivated student cannot be considered a non-submitter), BR-account-self-setup, BR-active-weeks, BR-war-reminder-unlimited (no limit to number of times instructor may send email reminders), BR-institution-time-zone
+
+**Associated Information:**
+- Reporting week: The week that contains the moment the non-submitters are determined (for steps 2 and 6). The weekly activity report for the reporting week is due on the course section's configured weekly activity report due day for the reporting week. Only the reporting week is looked at when determining non-submitters. Students are not sent reminders for earlier weeks, even when students can edit previous weeks' reports.
+- Non-submitter: A student in the course section who, at the moment the check runs at steps 2 and 6, is not deactivated, has completed account setup, is assigned to a team, and has not submitted a weekly activity report for the reporting week. A student assigned to a team partway through the reported week owes a report for that week. A student removed from their team before the check is not a non-submitter. A weekly activity report is considered submitted as explained in BR-war-submitted.
+- List: The name and team of every non-submitter at time of check. Includes total count
+- Reminder email: One email per student addressed to each individual student, naming course section and reporting week's due date and time. The date of the course section's weekly activity report due day within the reporting week, at its due time. The reminder email never names or addresses any other student (CO-ferpa)
+
+**Related Use Cases:** UC-WAR-manage-activities, UC-WAR-team-war-report
+**Assumptions:**
+**Open Issues:**
+
 ## **Peer Evaluation**
 
 ### **UC-EVA-submit-evaluation: The student submits a peer evaluation for the previous week**
