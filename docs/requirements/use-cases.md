@@ -2245,7 +2245,7 @@ Report generating algorithm: N/A
 - Reporting week: The week that contains the moment the non-submitters are determined (for steps 2 and 6). The weekly activity report for the reporting week is due on the course section's configured weekly activity report due day for the reporting week. Only the reporting week is looked at when determining non-submitters. Students are not sent reminders for earlier weeks, even when students can edit previous weeks' reports.
 - Non-submitter: A student in the course section who, at the moment the check runs at steps 2 and 6, is not deactivated, has completed account setup, is assigned to a team, and has not submitted a weekly activity report for the reporting week. A student assigned to a team partway through the reported week owes a report for that week. A student removed from their team before the check is not a non-submitter. A weekly activity report is considered submitted as explained in BR-war-submitted.
 - List: The name and team of every non-submitter at time of check. Includes total count
-- Reminder email: One email per student addressed to each individual student, naming course section and reporting week's due date and time. The reminder email never names or addresses any other student (CO-ferpa)
+- Reminder email: One email per student addressed to each individual student, naming course section and reporting week's due date and time. The date of the course section's weekly activity report due day within the reporting week, at its due time. The reminder email never names or addresses any other student (CO-ferpa)
 
 **Related Use Cases:** UC-WAR-manage-activities, UC-WAR-team-war-report
 **Assumptions:**
